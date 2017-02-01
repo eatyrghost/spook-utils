@@ -1,0 +1,31 @@
+{
+  "name": "spook-utils",
+  "version": "1.0.0",
+  "description": "A collection of utilities I use in every Node project.",
+  "main": "spook-utils.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/eatyrghost/spook-utils.git"
+  },
+  "keywords": [
+    "utilities",
+    "helpers",
+    "validate",
+    "tools",
+    "toolkit"
+  ],
+  "author": "eatyrghost",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/eatyrghost/spook-utils/issues"
+  },
+  "homepage": "https://github.com/eatyrghost/spook-utils#readme",
+  "devDependencies": {
+    "grunt": "^1.0.1",
+    "grunt-cli": "^1.2.0",
+    "grunt-jsdoc-to-markdown": "^2.0.0"
+  }
+}
