@@ -20,17 +20,19 @@ var spookUtils = (function () {
 		 * @returns {object} The object result of the cloning operation
 		 */
 		cloneObject: function (inObj, targetObj) {
-			if (typeof inObj === 'object' && inObj !== null) {
-				var _this = spookUtils,
+			var _this = spookUtils,
 					i = 0,
-					inObjKeys = Object.keys(inObj),
-					inObjKeyCount = inObjKeys.length,
+					inObjKeys = null,
+					inObjKeyCount = 0,
 					objKey = '',
 					objKeyType = '',
 					objKeyVal = null,
-					retVal = (typeof targetObj === 'object' && targetObj !== null ? targetObj : {});
+					retVal = (_this.isValidObject(targetObj) === true ? targetObj : {});
 
+			if (_this.isValidObject(inObj) === true) {
 				// Transfer properties recursively
+				inObjKeys = Object.keys(inObj);
+				inObjKeyCount = inObjKeys.length;
 				for (i = 0; i < inObjKeyCount; i++) {
 					objKey = inObjKeys[i];
 					objKeyVal = inObj[objKey];
@@ -75,22 +77,23 @@ var spookUtils = (function () {
 		 * @function combineObjects
 		 * @description Combines a collection of objects and returns the resulting object
 		 * @memberOf spookUtils
-		 * @param {type} objArray
+		 * @param {array} objArray An array of objects to combine
 		 * @returns {object} The result of combining the objects
 		 */
 		combineObjects: function (objArray) {
-			if (typeof objArray === 'object' && Array.isArray(objArray) === true) {
-				var _this = spookUtils,
+			var _this = spookUtils,
 					currentObj = null,
 					i = 0,
-					objCount = objArray.length,
+					objCount = 0,
 					retVal = null;
 
+			if (Array.isArray(objArray) === true) {
 				// Traverse through the objects
+				objCount = objArray.length;
 				for (i = 0; i < objCount; i++) {
 					currentObj = objArray[i];
 
-					if (typeof currentObj === 'object' && currentObj !== null) {
+					if (_this.isValidObject(currentObj) === true) {
 						retVal = _this.cloneObject(currentObj, retVal);
 					}
 				}

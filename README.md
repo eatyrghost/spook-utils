@@ -39,9 +39,9 @@ Combines a collection of objects and returns the resulting object
 **Kind**: static method of <code>[spookUtils](#spookUtils)</code>  
 **Returns**: <code>object</code> - The result of combining the objects  
 
-| Param | Type |
-| --- | --- |
-| objArray | <code>type</code> | 
+| Param | Type | Description |
+| --- | --- | --- |
+| objArray | <code>array</code> | An array of objects to combine |
 
 <a name="spookUtils.isValidObject"></a>
 
