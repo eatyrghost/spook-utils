@@ -76,7 +76,7 @@ var spookUtils = (function () {
 		 * @description Combines a collection of objects and returns the resulting object
 		 * @memberOf spookUtils
 		 * @param {type} objArray
-		 * @returns {unresolved}
+		 * @returns {object} The result of combining the objects
 		 */
 		combineObjects: function (objArray) {
 			if (typeof objArray === 'object' && Array.isArray(objArray) === true) {

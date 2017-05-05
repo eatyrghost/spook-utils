@@ -11,7 +11,7 @@
 
 * [spookUtils](#spookUtils) : <code>object</code>
     * [.cloneObject(inObj, targetObj)](#spookUtils.cloneObject) ⇒ <code>object</code>
-    * [.combineObjects(objArray)](#spookUtils.combineObjects) ⇒ <code>unresolved</code>
+    * [.combineObjects(objArray)](#spookUtils.combineObjects) ⇒ <code>object</code>
     * [.isValidObject(inObj)](#spookUtils.isValidObject) ⇒ <code>boolean</code>
     * [.validBoolean(inObj, retVal)](#spookUtils.validBoolean) ⇒ <code>boolean</code>
     * [.validNumber(inObj, retVal)](#spookUtils.validNumber) ⇒ <code>number</code>
@@ -33,10 +33,11 @@ Creates a new object that shares the same property values as an original object
 
 <a name="spookUtils.combineObjects"></a>
 
-### spookUtils.combineObjects(objArray) ⇒ <code>unresolved</code>
+### spookUtils.combineObjects(objArray) ⇒ <code>object</code>
 Combines a collection of objects and returns the resulting object
 
 **Kind**: static method of <code>[spookUtils](#spookUtils)</code>  
+**Returns**: <code>object</code> - The result of combining the objects  
 
 | Param | Type |
 | --- | --- |
