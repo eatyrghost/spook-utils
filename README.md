@@ -3,7 +3,7 @@
 ## spookUtils : <code>object</code>
 <p>A collection of reusable utilities for creating Node modules</p>
  <p>To install:</p>
- <pre>npm install spookUtils</pre>
+ <pre>npm install spook-utils</pre>
  <p>To use in your project:</p>
  <pre>var spookUtils = require('spookUtils');</pre>
 
