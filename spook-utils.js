@@ -53,6 +53,9 @@ var spookUtils = (function () {
 						case 'boolean':
 							retVal[objKey] = (objKeyVal === true);
 							break;
+						case 'function':
+							retVal[objKey] = objKeyVal.bind(retVal);
+							break;
 						case 'number':
 							retVal[objKey] = parseInt(objKeyVal, 10);
 							break;
