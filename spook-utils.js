@@ -5,7 +5,7 @@
  <p>To install:</p>
  <pre>npm install spook-utils</pre>
  <p>To use in your project:</p>
- <pre>var spookUtils = require('spookUtils');</pre>
+ <pre>var spookUtils = require('spook-utils');</pre>
  */
 var spookUtils = (function () {
 	'use strict';
@@ -21,13 +21,13 @@ var spookUtils = (function () {
 		 */
 		cloneObject: function (inObj, targetObj) {
 			var _this = spookUtils,
-					i = 0,
-					inObjKeys = null,
-					inObjKeyCount = 0,
-					objKey = '',
-					objKeyType = '',
-					objKeyVal = null,
-					retVal = (_this.isValidObject(targetObj) === true ? targetObj : {});
+				i = 0,
+				inObjKeys = null,
+				inObjKeyCount = 0,
+				objKey = '',
+				objKeyType = '',
+				objKeyVal = null,
+				retVal = (_this.isValidObject(targetObj) === true ? targetObj : {});
 
 			if (_this.isValidObject(inObj) === true) {
 				// Transfer properties recursively
@@ -85,10 +85,10 @@ var spookUtils = (function () {
 		 */
 		combineObjects: function (objArray) {
 			var _this = spookUtils,
-					currentObj = null,
-					i = 0,
-					objCount = 0,
-					retVal = null;
+				currentObj = null,
+				i = 0,
+				objCount = 0,
+				retVal = null;
 
 			if (Array.isArray(objArray) === true) {
 				// Traverse through the objects
