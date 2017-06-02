@@ -5,7 +5,7 @@
  <p>To install:</p>
  <pre>npm install spook-utils</pre>
  <p>To use in your project:</p>
- <pre>var spookUtils = require('spookUtils');</pre>
+ <pre>var spookUtils = require('spook-utils');</pre>
 
 **Kind**: global namespace  
 
