@@ -1,6 +1,6 @@
 {
   "name": "spook-utils",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A collection of utilities I use in every Node project.",
   "main": "spook-utils.js",
   "scripts": {
