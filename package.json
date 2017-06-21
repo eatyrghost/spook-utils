@@ -1,6 +1,6 @@
 {
   "name": "spook-utils",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "A collection of utilities I use in every Node project.",
   "main": "spook-utils.js",
   "scripts": {
@@ -26,6 +26,8 @@
   "devDependencies": {
     "grunt": "^1.0.1",
     "grunt-cli": "^1.2.0",
-    "grunt-jsdoc-to-markdown": "^2.0.0"
+    "grunt-contrib-uglify": "^3.0.1",
+    "grunt-jsdoc-to-markdown": "^2.0.0",
+    "uglify-js": "^3.0.18"
   }
 }

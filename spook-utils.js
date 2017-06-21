@@ -1,11 +1,12 @@
 /*global module:true */
 /**
  * @namespace spookUtils
- * @description <p>A collection of reusable utilities for creating Node modules</p>
+ * @description <p>A collection of reusable utilities for creating Node modules or web experiences.</p>
  <p>To install:</p>
  <pre>npm install spook-utils</pre>
  <p>To use in your project:</p>
  <pre>var spookUtils = require('spook-utils');</pre>
+ <p>Alternatively, include <samp>./dist/spook-utils.min.js</samp> and <samp>./dist/spook-utils.min.js.map</samp> in your project.</p>
  */
 var spookUtils = (function () {
 	'use strict';
@@ -15,63 +16,63 @@ var spookUtils = (function () {
 		 * @function cloneObject
 		 * @description Creates a new object that shares the same property values as an original object
 		 * @memberOf spookUtils
-		 * @param {object} inObj The object to clone
+		 * @param {object} inputObject The object to clone
 		 * @param {object} targetObj An optional target object to clone to
 		 * @returns {object} The object result of the cloning operation
 		 */
-		cloneObject: function (inObj, targetObj) {
+		cloneObject: function (inputObject, targetObj) {
 			var _this = spookUtils,
 				i = 0,
-				inObjKeys = null,
-				inObjKeyCount = 0,
-				objKey = '',
-				objKeyType = '',
-				objKeyVal = null,
-				retVal = (_this.isValidObject(targetObj) === true ? targetObj : {});
+				inputObjectKeys = null,
+				inputObjectKeyCount = 0,
+				objectKey = '',
+				objectKeyType = '',
+				objectKeyValue = null,
+				returnValue = (_this.isValidObject(targetObj) === true ? targetObj : {});
 
-			if (_this.isValidObject(inObj) === true) {
+			if (_this.isValidObject(inputObject) === true) {
 				// Transfer properties recursively
-				inObjKeys = Object.keys(inObj);
-				inObjKeyCount = inObjKeys.length;
-				for (i = 0; i < inObjKeyCount; i++) {
-					objKey = inObjKeys[i];
-					objKeyVal = inObj[objKey];
-					objKeyType = typeof objKeyVal;
+				inputObjectKeys = Object.keys(inputObject);
+				inputObjectKeyCount = inputObjectKeys.length;
+				for (i = 0; i < inputObjectKeyCount; i++) {
+					objectKey = inputObjectKeys[i];
+					objectKeyValue = inputObject[objectKey];
+					objectKeyType = typeof objectKeyValue;
 
 					// Treat null values differently
-					if (objKeyType === 'object' && objKeyVal === null) {
-						objKeyType = 'null';
-					} else if (Array.isArray(objKeyVal) === true) {
-						objKeyType = 'array';
+					if (objectKeyType === 'object' && objectKeyValue === null) {
+						objectKeyType = 'null';
+					} else if (Array.isArray(objectKeyValue) === true) {
+						objectKeyType = 'array';
 					}
 
 					// Transfer intelligently based on the type
-					switch (objKeyType) {
+					switch (objectKeyType) {
 						case 'array':
-							retVal[objKey] = JSON.parse(JSON.stringify(objKeyVal));
+							returnValue[objectKey] = JSON.parse(JSON.stringify(objectKeyValue));
 							break;
 						case 'boolean':
-							retVal[objKey] = (objKeyVal === true);
+							returnValue[objectKey] = (objectKeyValue === true);
 							break;
 						case 'function':
-							retVal[objKey] = objKeyVal.bind(retVal);
+							returnValue[objectKey] = objectKeyValue.bind(returnValue);
 							break;
 						case 'number':
-							retVal[objKey] = parseInt(objKeyVal, 10);
+							returnValue[objectKey] = parseInt(objectKeyValue, 10);
 							break;
 						case 'object':
-							retVal[objKey] = _this.cloneObject(objKeyVal);
+							returnValue[objectKey] = _this.cloneObject(objectKeyValue);
 							break;
 						case 'null':
-							retVal[objKey] = null;
+							returnValue[objectKey] = null;
 							break;
 						case 'string':
-							retVal[objKey] = '' + objKeyVal;
+							returnValue[objectKey] = '' + objectKeyValue;
 							break;
 					}
 				}
 
-				return retVal;
+				return returnValue;
 			} else {
 				return null;
 			}
@@ -85,23 +86,23 @@ var spookUtils = (function () {
 		 */
 		combineObjects: function (objArray) {
 			var _this = spookUtils,
-				currentObj = null,
+				currentObject = null,
 				i = 0,
-				objCount = 0,
-				retVal = null;
+				objectCount = 0,
+				returnValue = null;
 
 			if (Array.isArray(objArray) === true) {
 				// Traverse through the objects
-				objCount = objArray.length;
-				for (i = 0; i < objCount; i++) {
-					currentObj = objArray[i];
+				objectCount = objArray.length;
+				for (i = 0; i < objectCount; i++) {
+					currentObject = objArray[i];
 
-					if (_this.isValidObject(currentObj) === true) {
-						retVal = _this.cloneObject(currentObj, retVal);
+					if (_this.isValidObject(currentObject) === true) {
+						returnValue = _this.cloneObject(currentObject, returnValue);
 					}
 				}
 
-				return retVal;
+				return returnValue;
 			} else {
 				return null;
 			}
@@ -110,102 +111,113 @@ var spookUtils = (function () {
 		 * @function isValidObject
 		 * @description Determines if an object is a valid, non-null object
 		 * @memberOf spookUtils
-		 * @param {object} inObj The object to validate
-		 * @returns {boolean} The boolean result of evaluating inObj
+		 * @param {object} inputObject The object to validate
+		 * @returns {boolean} The boolean result of evaluating inputObject
 		 */
-		isValidObject: function (inObj) {
-			return (typeof inObj === 'object' && inObj !== null);
+		isValidObject: function (inputObject) {
+			return (typeof inputObject === 'object' && inputObject !== null);
 		},
 		/**
 		 * @function validBoolean
 		 * @description Attempts to parse an object as a valid boolean
 		 * @memberOf spookUtils
-		 * @param {object} inObj The object to validate as a boolean
-		 * @param {boolean} retVal The default value to return, defaults to `false`
-		 * @returns {boolean} The boolean result of evaluating inObj
+		 * @param {object} inputObject The object to validate as a boolean
+		 * @param {boolean} returnValue The default value to return, defaults to `false`
+		 * @returns {boolean} The boolean result of evaluating inputObject
 		 */
-		validBoolean: function (inObj, retVal) {
-			if (typeof inObj === 'boolean') {
-				retVal = inObj;
-			} else if (typeof inObj === 'number') {
-				retVal = (inObj === 1 ? true : false);
-			} else if (typeof inObj === 'string') {
-				retVal = (inObj === 'true' ? true : false);
-			} else if (typeof retVal !== 'boolean') {
-				retVal = false;
+		validBoolean: function (inputObject, returnValue) {
+			if (typeof inputObject === 'boolean') {
+				returnValue = inputObject;
+			} else if (typeof inputObject === 'number') {
+				returnValue = (inputObject === 1 ? true : false);
+			} else if (typeof inputObject === 'string') {
+				returnValue = (inputObject === 'true' ? true : false);
+			} else if (typeof returnValue !== 'boolean') {
+				returnValue = false;
 			}
 
-			return retVal;
+			return returnValue;
 		},
 		/**
 		 * @function validNumber
 		 * @description Attempts to parse an object as a valid base-10 number
 		 * @memberOf spookUtils
-		 * @param {object} inObj The object to validate as a number
-		 * @param {number} retVal The default value to return, defaults to `0`
-		 * @returns {number} The numerical result of evaluating inObj
+		 * @param {object} inputObject The object to validate as a number
+		 * @param {number} returnValue The default value to return, defaults to `0`
+		 * @returns {number} The numerical result of evaluating inputObject
 		 */
-		validNumber: function (inObj, retVal) {
-			if (typeof inObj === 'number') {
-				retVal = inObj;
-			} else if (typeof inObj !== 'undefined' && isNaN(inObj) === false) {
-				retVal = parseInt(inObj, 10);
-			} else if (typeof retVal !== 'number') {
-				retVal = (typeof retVal !== 'undefined' && isNaN(retVal) === false ? parseInt(retVal, 10) : 0);
+		validNumber: function (inputObject, returnValue) {
+			if (typeof inputObject === 'number') {
+				returnValue = inputObject;
+			} else if (typeof inputObject !== 'undefined' && isNaN(inputObject) === false) {
+				returnValue = parseInt(inputObject, 10);
+			} else if (typeof returnValue !== 'number') {
+				returnValue = (typeof returnValue !== 'undefined' && isNaN(returnValue) === false ? parseInt(returnValue, 10) : 0);
 			}
 
-			return retVal;
+			return returnValue;
 		},
 		/**
 		 * @function validObject
 		 * @description Attempts to parse an object as a valid object
 		 * @memberOf spookUtils
-		 * @param {object} inObj The object to validate as an object
-		 * @param {object} retVal The default value to return, defaults to `null`
-		 * @returns {object} The object result of evaluating inObj
+		 * @param {object} inputObject The object to validate as an object
+		 * @param {object} returnValue The default value to return, defaults to `null`
+		 * @returns {object} The object result of evaluating inputObject
 		 */
-		validObject: function (inObj, retVal) {
-			if (typeof inObj === 'object') {
-				retVal = inObj;
-			} else if (typeof inObj === 'string') {
+		validObject: function (inputObject, returnValue) {
+			if (typeof inputObject === 'object') {
+				returnValue = inputObject;
+			} else if (typeof inputObject === 'string') {
 				try {
-					retVal = JSON.parse(inObj);
+					returnValue = JSON.parse(inputObject);
 				} catch (e) {
-					retVal = null;
+					returnValue = null;
 				}
-			} else if (typeof retVal === 'string') {
+			} else if (typeof returnValue === 'string') {
 				try {
-					retVal = JSON.parse(retVal);
+					returnValue = JSON.parse(returnValue);
 				} catch (e) {
-					retVal = null;
+					returnValue = null;
 				}
-			} else if (typeof retVal !== 'object' && typeof retVal !== 'string') {
-				retVal = null;
+			} else if (typeof returnValue !== 'object' && typeof returnValue !== 'string') {
+				returnValue = null;
 			}
 
-			return retVal;
+			return returnValue;
 		},
 		/**
 		 * @function validString
 		 * @description Attempts to parse an object as a valid string
 		 * @memberOf spookUtils
-		 * @param {object} inObj The object to validate as an object
-		 * @param {string} retVal The default value to return, defaults to `''`
-		 * @returns {string} The string result of evaluating inObj
+		 * @param {object} inputObject The object to validate as an object
+		 * @param {string} returnValue The default value to return, defaults to `''`
+		 * @returns {string} The string result of evaluating inputObject
 		 */
-		validString: function (inObj, retVal) {
-			if (typeof inObj === 'string') {
-				retVal = inObj;
-			} else if (typeof inObj !== 'undefined' && typeof inObj.toString === 'function') {
-				retVal = inObj.toString();
-			} else if (typeof retVal !== 'undefined' && typeof retVal.toString === 'function') {
-				retVal = retVal.toString();
-			} else if (typeof retVal !== 'string') {
-				retVal = '';
+		validString: function (inputObject, returnValue) {
+			if (typeof inputObject === 'string') {
+				returnValue = inputObject;
+			} else if (typeof inputObject !== 'undefined' && typeof inputObject.toString === 'function') {
+				returnValue = inputObject.toString();
+			} else if (typeof returnValue !== 'undefined' && typeof returnValue.toString === 'function') {
+				returnValue = returnValue.toString();
+			} else if (typeof returnValue !== 'string') {
+				returnValue = '';
 			}
 
-			return retVal;
+			return returnValue;
 		}
 	};
 }());
-module.exports = spookUtils;
+
+// Create a global-scoped object
+try {
+	window.spookUtils = spookUtils;
+} catch (e) {
+}
+
+// Create a module
+try {
+	module.exports = spookUtils;
+} catch (e) {
+}
